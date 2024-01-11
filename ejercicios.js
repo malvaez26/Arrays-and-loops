@@ -46,20 +46,32 @@ function secretName(miembros) {
     return nombreSecreto;
 }
 
-console.log(secretName(["Esperanza", "Franco", "Nia"])); // Debería devolver 'EFN'
-console.log(secretName(['Phoebe', 'Ross', 'Chandler', 'Joey', 'Monica', 'Rachel'])); // Debería devolver 'CJMPRR'
-console.log(secretName(['Harry', 'Ron', 'Hermione'])); // Debería devolver 'HHR'
+console.log(secretName(["Esperanza", "Franco", "Nia"])); // 
+console.log(secretName(['Phoebe', 'Ross', 'Chandler', 'Joey', 'Monica', 'Rachel'])); 
+console.log(secretName(['Harry', 'Ron', 'Hermione'])); // 
 
+// Estado en linea
+// Muestra el estado en línea de una lista de usuarios.
 
+function onlineStatus(usuarios) {
+    let enLinea = 0;
 
+    usuarios.forEach(usuario => {
+        if (usuario.endsWith('EnLinea')) { // Se utilizo endsWith para determina si una cadena de texto termina con los caracteres de una cadena indicada, devolviendo true o false según corresponda
+            enLinea++;
+        }
+    });
 
+    if (enLinea === 0) {
+        return 'Ningún usuario en línea';
+    } else if (enLinea === 1) {
+        return usuarios.join(', ') + ' está en línea';
+    } else {
+        return usuarios.join(', ') + ' y ' + (enLinea - 1) + ' más están en línea';
+    }
+}
 
-
-
-
-
-
-
+console.log(onlineStatus(['mockIng99EnLinea', 'J0eyPunch', 'glassedFerEnLinea'])); // Debería devolver 'mockIng99EnLinea, glassedFerEnLinea y 1 más están en línea'
 
 // Matriz de múltiplos
 // Cree una función que tome dos parámetros (número, longitud) y devuelva una matriz de longitud que contenga múltiplos del número.
@@ -96,3 +108,35 @@ function positiveDom(matriz) {
 
 console.log(positiveDom([-1, -3, -5, 4, 6767]));
 
+// Promedio antípoda
+// Dada una matriz, devuelva una matriz más corta siguiendo estos pasos:
+// Divida la matriz en dos partes iguales*. Si no es igual, elimine el elemento del medio para obtener dos matrices iguales.
+// Sumar cada número de la primera parte con los números inversos de la segunda parte.
+// Divide cada número de la matriz resultante entre 2.
+
+function transformarMatriz(matriz) {
+    // Dividir la matriz en dos partes iguales
+    const mitad = Math.floor(matriz.length / 2);
+    const primeraParte = matriz.slice(0, mitad);
+    const segundaParte = matriz.slice(-mitad);
+
+    // Eliminar el elemento del medio si la longitud de la matriz es impar
+    if (matriz.length % 2 !== 0) {
+        segundaParte.pop();
+    }
+
+    // Inicializar la matriz resultante
+    const resultado = [];
+
+    // Sumar cada número de la primera parte con los números inversos de la segunda parte y dividir entre 2
+    for (let i = 0; i < primeraParte.length; i++) {
+        const sumaInversa = primeraParte[i] + 1 / segundaParte[i];
+        const resultadoFinal = sumaInversa / 2;
+        resultado.push(resultadoFinal);
+    }
+
+    return resultado;
+}
+
+// Ejemplo de uso
+console.log(transformarMatriz([1, 2, 3, 5, 22, 6])); // Debería devolver [3.5, 12, 4]
